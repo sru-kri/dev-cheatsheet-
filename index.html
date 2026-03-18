@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dev Cheatsheet Site</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- header -->
+        <header class="header">
+            <h1>Dev Cheatsheet</h1>
+            <p>Quick reference for common commands and snippets</p>
+        </header>
+
+        <!-- search bar -->
+        <div class="search-section">
+            <input 
+                type="text" 
+                id="searchInput" 
+                class="search-bar" 
+                placeholder="Search by title or description..."
+            >
+        </div>
+
+        <!-- filter buttons -->
+        <div class="filter-section">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="git">Git</button>
+            <button class="filter-btn" data-filter="terminal">Terminal</button>
+            <button class="filter-btn" data-filter="javascript">JavaScript</button>
+            <button class="filter-btn" data-filter="css">CSS</button>
+        </div>
+
+        <!-- cheatsheet cards container -->
+        <div id="cardsContainer" class="cards-container">
+            <!-- cards will be inserted here by javascript -->
+        </div>
+
+        <!-- no results message -->
+        <div id="noResults" class="no-results">
+            <p>No cheatsheets found. Try adjusting your search or filters.</p>
+        </div>
+    </div>
+
+    <!-- load data first, then scripts -->
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
