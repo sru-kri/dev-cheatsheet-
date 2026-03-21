@@ -175,3 +175,28 @@ if (document.readyState === 'loading') {
 } else {
     initializeApp();
 }
+
+// --- Dark Mode Logic ---
+var themeToggle = document.getElementById('themeToggle');
+var htmlElement = document.documentElement;
+
+// 1. Check for saved preference on load
+var savedTheme = localStorage.getItem('theme') || 'light';
+if (savedTheme === 'dark') {
+    htmlElement.setAttribute('data-theme', 'dark');
+}
+
+// 2. Add event listener to toggle button
+if (themeToggle) {
+    themeToggle.addEventListener('click', function() {
+        var isDark = htmlElement.hasAttribute('data-theme');
+        
+        if (isDark) {
+            htmlElement.removeAttribute('data-theme');
+            localStorage.setItem('theme', 'light');
+        } else {
+            htmlElement.setAttribute('data-theme', 'dark');
+            localStorage.setItem('theme', 'dark');
+        }
+    });
+}
