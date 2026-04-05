@@ -3,6 +3,7 @@ var cardsContainer = document.getElementById('cardsContainer');
 var noResults = document.getElementById('noResults');
 var searchInput = document.getElementById('searchInput');
 var filterButtons = document.querySelectorAll('.filter-btn');
+var clearBtn = document.getElementById('clearBtn');
 
 // track the current active filter and search term
 var currentFilter = 'all';
@@ -15,6 +16,23 @@ function initializeApp() {
     
     // add event listener for search input
     searchInput.addEventListener('keyup', handleSearch);
+
+    // show or hide clear button based on input
+    searchInput.addEventListener('input', function() {
+        if (searchInput.value.length > 0) {
+            clearBtn.style.display = 'block';
+        } else {
+            clearBtn.style.display = 'none';
+        }
+    });
+
+    // clear input when × is clicked
+    clearBtn.addEventListener('click', function() {
+        searchInput.value = '';
+        clearBtn.style.display = 'none';
+        currentSearchTerm = '';
+        filterAndRenderCards();
+    });
     
     // add event listeners for filter buttons
     filterButtons.forEach(function(button) {
