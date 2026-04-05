@@ -73,5 +73,23 @@ var cheatsheetData = [
         category: "css",
         description: "Apply styles that only work on mobile screens",
         code: "@media (max-width: 768px) {\n  .responsive {\n    font-size: 14px;\n  }\n}"
-    }
+    },
+    {
+    title: "Print Working Directory",
+    category: "terminal",
+    description: "Show the current directory path",
+    code: "pwd"
+    },
+    {
+    title: "Create Directory",
+    category: "terminal",
+    description: "Create a new folder",
+    code: "mkdir folder-name"
+   },
+   {
+    title: "Clear Terminal",
+    category: "terminal",
+    description: "Clear the terminal screen",
+    code: "clear"
+   }
 ];
