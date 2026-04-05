@@ -60,6 +60,8 @@ function filterAndRenderCards() {
 }
 
 function renderCards(cardsToRender) {
+    var resultsCount = document.getElementById('resultCount');
+    resultsCount.textContent = `Showing ${cardsToRender.length} of ${cheatsheetData.length} cheatsheets`;
     cardsContainer.innerHTML = '';
     
     if (cardsToRender.length === 0) {
