@@ -1,3 +1,18 @@
+var FAVORITES_KEY = 'favorites';
+
+function getFavorites() {
+    try {
+        return JSON.parse(localStorage.getItem(FAVORITES_KEY)) || [];
+    } catch {
+        return [];
+    }
+}
+
+function saveFavorites(favs) {
+    localStorage.setItem(FAVORITES_KEY, JSON.stringify(favs));
+}
+
+var favorites = getFavorites();
 var cardsContainer = document.getElementById('cardsContainer');
 var noResults = document.getElementById('noResults');
 var searchInput = document.getElementById('searchInput');
@@ -47,7 +62,13 @@ function handleFilter(event) {
 
 function filterAndRenderCards() {
     var filtered = cheatsheetData.filter(function(cheatsheet) {
-        var categoryMatch = currentFilter === 'all' || cheatsheet.category === currentFilter;
+        var categoryMatch;
+
+if (currentFilter === 'favorites') {
+    categoryMatch = favorites.includes(cheatsheet.id);
+} else {
+    categoryMatch = currentFilter === 'all' || cheatsheet.category === currentFilter;
+}
         
         var searchMatch =
             cheatsheet.title.toLowerCase().includes(currentSearchTerm) ||
@@ -60,9 +81,16 @@ function filterAndRenderCards() {
 }
 
 function renderCards(cardsToRender) {
+    var resultCount = document.getElementById('resultCount');
+    resultCount.textContent = `Showing ${cardsToRender.length} of ${cheatsheetData.length} cheatsheets`;
     cardsContainer.innerHTML = '';
     
     if (cardsToRender.length === 0) {
+          if (currentFilter === 'favorites') {
+        noResults.innerHTML = '<p>No favorites yet ⭐</p>';
+    } else {
+        noResults.innerHTML = '<p>No cheatsheets found. Try adjusting your search or filters.</p>';
+    }
         noResults.style.display = 'block';
         return;
     }
@@ -79,17 +107,32 @@ function createCardElement(cheatsheet) {
     var card = document.createElement('div');
     card.className = 'card';
     
-    card.innerHTML = 
-        '<div class="card-header">' +
-            '<h3 class="card-title">' + cheatsheet.title + '</h3>' +
+var isFav = favorites.includes(cheatsheet.id);
+
+card.innerHTML = 
+    '<div class="card-header">' +
+        '<h3 class="card-title">' + cheatsheet.title + '</h3>' +
+
+        '<div style="display:flex; gap:10px; align-items:center;">' +
             '<span class="card-category">' + cheatsheet.category + '</span>' +
+
+            '<button class="fav-btn" data-id="' + cheatsheet.id + '">' +
+                (isFav ? '❤️' : '🤍') +
+            '</button>' +
         '</div>' +
-        '<p class="card-description">' + cheatsheet.description + '</p>' +
-        '<pre class="card-code">' + escapeHtml(cheatsheet.code) + '</pre>' +
-        '<button class="copy-btn" data-code="' + escapeHtml(cheatsheet.code) + '">Copy Code</button>';
+    '</div>' +
+
+    '<p class="card-description">' + cheatsheet.description + '</p>' +
+    '<pre class="card-code">' + escapeHtml(cheatsheet.code) + '</pre>' +
+    '<button class="copy-btn" data-code="' + escapeHtml(cheatsheet.code) + '">Copy Code</button>';
     
     var copyButton = card.querySelector('.copy-btn');
-    copyButton.addEventListener('click', handleCopyClick);
+        copyButton.addEventListener('click', handleCopyClick);
+    var favButton = card.querySelector('.fav-btn');
+favButton.addEventListener('click', function() {
+    toggleFavorite(cheatsheet.id);
+});
+
     
     return card;
 }
@@ -171,4 +214,16 @@ if (themeToggle) {
             localStorage.setItem('theme', 'dark');
         }
     });
+}
+function toggleFavorite(id) {
+    if (favorites.includes(id)) {
+        favorites = favorites.filter(function(fav) {
+            return fav !== id;
+        });
+    } else {
+        favorites.push(id);
+    }
+
+    saveFavorites(favorites);
+    filterAndRenderCards();
 }
