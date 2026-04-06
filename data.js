@@ -99,6 +99,43 @@ var cheatsheetData = [
       "Check the current state of your repository including staged and unstaged changes.",
     code: "git status",
   },
+  // --- SQL COMMANDS ---
+  {
+    title: "SQL Select All",
+    category: "sql",
+    description: "Fetch all columns and rows from a specific table.",
+    code: `SELECT * FROM table_name;`,
+  },
+  {
+    title: "SQL Filter Results",
+    category: "sql",
+    description: "Retrieve rows that meet specific conditions.",
+    code: `SELECT * FROM users
+WHERE age >= 18 AND status = 'active';`,
+  },
+  {
+    title: "SQL Insert Record",
+    category: "sql",
+    description: "Add a new row of data to a table.",
+    code: `INSERT INTO products (name, price)
+VALUES ('Laptop', 999.99);`,
+  },
+  {
+    title: "SQL Update Data",
+    category: "sql",
+    description: "Modify existing records in a table.",
+    code: `UPDATE users
+SET email = 'new@example.com'
+WHERE id = 1;`,
+  },
+  {
+    title: "SQL Inner Join",
+    category: "sql",
+    description: "Combine rows from two tables based on a related column.",
+    code: `SELECT orders.id, users.name
+FROM orders
+INNER JOIN users ON orders.user_id = users.id;`,
+  },
   {
     title: "React useState Hook",
     category: "react",
