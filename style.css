@@ -171,6 +171,9 @@ body {
     font-size: 0.95rem;
     font-weight: 500;
     transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }
 
 .filter-btn:hover {
@@ -182,6 +185,32 @@ body {
     background-color: var(--accent-color);
     color: white;
     border-color: var(--accent-color);
+}
+
+/* Category Dots */
+.dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.dot-git { background-color: #3b82f6; }
+.dot-terminal { background-color: #22c55e; }
+.dot-javascript { background-color: #f59e0b; }
+.dot-css { background-color: #a855f7; }
+.dot-react { background-color: #06b6d4; }
+.dot-sql { background-color: #f97316; }
+
+/* Count badge */
+.count {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.filter-btn.active .count {
+    color: white;
 }
 
 /* 6. Cards Container */
@@ -225,7 +254,9 @@ body {
 }
 
 .card-category {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
     background-color: var(--category-bg);
     color: var(--text-muted);
     padding: 4px 10px;
