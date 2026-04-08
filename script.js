@@ -5,6 +5,12 @@ var searchInput = document.getElementById('searchInput');
 var filterButtons = document.querySelectorAll('.filter-btn');
 var clearBtn = document.getElementById('clearBtn');
 
+// set snippet count badge
+var snippetBadge = document.getElementById('snippetBadge');
+if (snippetBadge) {
+    snippetBadge.textContent = cheatsheetData.length + ' snippets';
+}
+
 // track the current active filter and search term
 var currentFilter = 'all';
 var currentSearchTerm = '';
